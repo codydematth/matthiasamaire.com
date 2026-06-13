@@ -19,8 +19,19 @@ export const metadata: Metadata = {
   title: "Matthias Amire | Frontend & React Native Engineer",
   description: "Matthias Amire is a Freelance Frontend and React Native Engineer with 3+ years of experience building real-world web and mobile applications.",
   metadataBase: new URL("https://matthiasamire.com"),
+  keywords: [
+    "Matthias Amire",
+    "Matthias",
+    "Amire",
+    "Frontend Engineer",
+    "React Native Engineer",
+    "React Native Developer",
+    "Software Engineer",
+    "Portfolio",
+    "FastAPI Developer"
+  ],
   alternates: {
-    canonical: "/",
+    canonical: "./",
   },
   openGraph: {
     title: "Matthias Amire | Portfolio",
@@ -37,12 +48,40 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Matthias Amire",
+    "url": "https://matthiasamire.com",
+    "jobTitle": "Frontend & React Native Engineer",
+    "sameAs": [
+      "https://github.com/codydematth",
+      "https://www.linkedin.com/in/codydematth/"
+    ],
+    "knowsAbout": [
+      "Frontend Engineering",
+      "React Native",
+      "React",
+      "FastAPI",
+      "TypeScript",
+      "JavaScript",
+      "Web Development",
+      "Mobile Development"
+    ]
+  };
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-[#0B0F19] text-slate-100 relative">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
         <ThreeBackground />
         <CursorGlow />
         <main className="flex-1 flex flex-col pt-0">
