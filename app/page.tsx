@@ -26,17 +26,13 @@ export default function Home() {
         {/* Dark mask overlay to guarantee absolute text contrast */}
         <div className="absolute inset-0 bg-[#0B0F19]/85 backdrop-blur-[1px]" />
 
-        <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+        <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 py-16">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="flex-1 space-y-6 text-left"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/40 text-indigo-400 border border-indigo-900/50 text-xs font-semibold tracking-wide">
-              {/* <Sparkles className="w-3.5 h-3.5" /> */}
-              <span>Available for Remote Opportunities</span>
-            </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none text-white">
               Hi, I&apos;m <span className="text-indigo-400">Matthias Amire</span>
@@ -169,7 +165,7 @@ export default function Home() {
       </section>
 
       {/* 4. EXPERIENCE TIMELINE */}
-      <section id="experience" className="w-full bg-[#080B13]/60 py-20 px-6 border-y border-slate-950">
+      <section id="experience" className="w-full bg-[#080B13]/60 py-20 px-4 sm:px-6 border-y border-slate-950">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/40 text-indigo-400 border border-indigo-900/50 text-xs font-semibold">

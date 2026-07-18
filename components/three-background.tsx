@@ -77,18 +77,33 @@ export default function ThreeBackground() {
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
 
-    // 5. Interaction (Mouse Move & Scroll Velocity)
+    // 5. Interaction (Mouse Move & Scroll Velocity & Reduced Motion Control)
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
+    let motionDisabled = typeof document !== 'undefined' ? document.documentElement.classList.contains('reduced-motion') : false;
 
     const handleMouseMove = (event: MouseEvent) => {
+      if (motionDisabled) return;
       mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
       mouseY = -(event.clientY / window.innerHeight - 0.5) * 2;
     };
 
     window.addEventListener('mousemove', handleMouseMove);
+
+    const handleMotionToggle = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      motionDisabled = customEvent.detail?.disabled ?? false;
+      if (motionDisabled) {
+        // Reset interactive targets immediately on pause
+        mouseX = 0;
+        mouseY = 0;
+        targetX = 0;
+        targetY = 0;
+      }
+    };
+    window.addEventListener('motion-toggle', handleMotionToggle);
 
     // Scroll speed velocity tracker
     let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
@@ -96,6 +111,7 @@ export default function ThreeBackground() {
     let targetScrollVelocity = 0;
 
     const handleScroll = () => {
+      if (motionDisabled) return;
       const currentScrollY = window.scrollY;
       const diff = Math.abs(currentScrollY - lastScrollY);
       targetScrollVelocity = diff * 0.1; // Scale factor for speed
@@ -132,36 +148,39 @@ export default function ThreeBackground() {
       
       const speedBase = 0.003;
       const speedWarp = scrollVelocity * 0.25;
-      const currentSpeed = speedBase + speedWarp;
+      const currentSpeed = motionDisabled ? 0 : (speedBase + speedWarp);
 
-      for (let i = 0; i < particlesCount * 3; i += 3) {
-        // Move towards camera
-        array[i + 2] += currentSpeed;
+      // Only update positions if we are actually moving
+      if (currentSpeed > 0) {
+        for (let i = 0; i < particlesCount * 3; i += 3) {
+          // Move towards camera
+          array[i + 2] += currentSpeed;
 
-        // Reset particle to far back if it crosses past camera (z > 5.5)
-        if (array[i + 2] > 5.5) {
-          array[i + 2] = -6; // reset to back
-          array[i] = (Math.random() - 0.5) * 12; // randomize new x entry
-          array[i + 1] = (Math.random() - 0.5) * 12; // randomize new y entry
+          // Reset particle to far back if it crosses past camera (z > 5.5)
+          if (array[i + 2] > 5.5) {
+            array[i + 2] = -6; // reset to back
+            array[i] = (Math.random() - 0.5) * 12; // randomize new x entry
+            array[i + 1] = (Math.random() - 0.5) * 12; // randomize new y entry
+          }
         }
+        positionsAttr.needsUpdate = true;
       }
-      positionsAttr.needsUpdate = true;
 
       // Mouse reactivity (smooth interpolation)
       targetX += (mouseX - targetX) * 0.05;
       targetY += (mouseY - targetY) * 0.05;
 
       // Increase amplitude for stronger mouse following parallax movement
-      camera.position.x = targetX * 1.6;
-      camera.position.y = targetY * 1.6;
+      camera.position.x = motionDisabled ? 0 : (targetX * 1.6);
+      camera.position.y = motionDisabled ? 0 : (targetY * 1.6);
 
       // Slow orbital rotation combined with direct mouse tilt influence
-      particles.rotation.y = elapsedTime * 0.01 + targetX * 0.25;
-      particles.rotation.x = elapsedTime * 0.005 - targetY * 0.25;
+      particles.rotation.y = motionDisabled ? 0 : (elapsedTime * 0.01 + targetX * 0.25);
+      particles.rotation.x = motionDisabled ? 0 : (elapsedTime * 0.005 - targetY * 0.25);
       
       // Dynamic camera field of view warp zoom
       const baseFOV = 75;
-      const targetFOV = baseFOV + Math.min(scrollVelocity * 45, 40); // max FOV 115
+      const targetFOV = motionDisabled ? baseFOV : (baseFOV + Math.min(scrollVelocity * 45, 40)); // max FOV 115
       camera.fov += (targetFOV - camera.fov) * 0.1;
       camera.updateProjectionMatrix();
 
@@ -175,6 +194,7 @@ export default function ThreeBackground() {
     // 8. Clean up
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('motion-toggle', handleMotionToggle);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(reqId);

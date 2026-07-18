@@ -12,15 +12,6 @@ export default function TermsOfServicePage() {
   return (
     <div className="w-full min-h-screen bg-[#090C15] text-slate-300 py-12 px-6">
       <div className="max-w-3xl mx-auto space-y-8">
-        {/* Back Link */}
-        <Link
-          href="/apps/vaultvoss"
-          className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to VaultVoss Landing Page</span>
-        </Link>
-
         {/* Content Container */}
         <article className="glass rounded-3xl p-8 md:p-12 space-y-6 text-left leading-relaxed">
           <header className="border-b border-slate-800 pb-6">

@@ -31,16 +31,6 @@ export default function VaultVossPage() {
 
   return (
     <div className="w-full min-h-screen bg-[#090C15]">
-      {/* Back button */}
-      <div className="max-w-6xl mx-auto px-6 pt-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Developer Portfolio</span>
-        </Link>
-      </div>
 
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto px-6 py-16 flex flex-col lg:flex-row items-center justify-between gap-12">

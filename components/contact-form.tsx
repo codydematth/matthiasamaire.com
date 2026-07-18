@@ -89,6 +89,8 @@ export default function ContactForm() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
+            role="status"
+            aria-live="polite"
             className="flex items-center gap-3 p-4 rounded-xl bg-emerald-950/40 border border-emerald-900 text-emerald-400 mb-6 text-sm"
           >
             <CheckCircle className="w-5 h-5 shrink-0" />
@@ -99,12 +101,12 @@ export default function ContactForm() {
           </motion.div>
         )}
 
-
-
         {submitStatus === 'error' && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
+            role="alert"
+            aria-live="assertive"
             className="flex items-center gap-3 p-4 rounded-xl bg-red-950/40 border border-red-900 text-red-400 mb-6 text-sm"
           >
             <AlertCircle className="w-5 h-5 shrink-0" />
@@ -129,6 +131,10 @@ export default function ContactForm() {
                 type="text"
                 id="name"
                 name="name"
+                required
+                aria-required="true"
+                aria-invalid={errors.name ? 'true' : 'false'}
+                aria-describedby={errors.name ? 'name-error' : undefined}
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="John Doe"
@@ -137,7 +143,7 @@ export default function ContactForm() {
                 }`}
               />
             </div>
-            {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
+            {errors.name && <p id="name-error" className="text-xs text-red-500 mt-1" role="alert">{errors.name}</p>}
           </div>
 
           {/* Email */}
@@ -153,6 +159,10 @@ export default function ContactForm() {
                 type="email"
                 id="email"
                 name="email"
+                required
+                aria-required="true"
+                aria-invalid={errors.email ? 'true' : 'false'}
+                aria-describedby={errors.email ? 'email-error' : undefined}
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="john@example.com"
@@ -161,7 +171,7 @@ export default function ContactForm() {
                 }`}
               />
             </div>
-            {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
+            {errors.email && <p id="email-error" className="text-xs text-red-500 mt-1" role="alert">{errors.email}</p>}
           </div>
 
           {/* Subject */}
@@ -177,6 +187,10 @@ export default function ContactForm() {
                 type="text"
                 id="subject"
                 name="subject"
+                required
+                aria-required="true"
+                aria-invalid={errors.subject ? 'true' : 'false'}
+                aria-describedby={errors.subject ? 'subject-error' : undefined}
                 value={formData.subject}
                 onChange={handleChange}
                 placeholder="Collaboration, job offer, or feedback..."
@@ -185,7 +199,7 @@ export default function ContactForm() {
                 }`}
               />
             </div>
-            {errors.subject && <p className="text-xs text-red-500 mt-1">{errors.subject}</p>}
+            {errors.subject && <p id="subject-error" className="text-xs text-red-500 mt-1" role="alert">{errors.subject}</p>}
           </div>
 
           {/* Message */}
@@ -196,6 +210,10 @@ export default function ContactForm() {
             <textarea
               id="message"
               name="message"
+              required
+              aria-required="true"
+              aria-invalid={errors.message ? 'true' : 'false'}
+              aria-describedby={errors.message ? 'message-error' : undefined}
               value={formData.message}
               onChange={handleChange}
               rows={4}
@@ -204,7 +222,7 @@ export default function ContactForm() {
                 errors.message ? 'border-red-900/60 focus:border-red-500' : 'border-white/5'
               }`}
             />
-            {errors.message && <p className="text-xs text-red-500 mt-1">{errors.message}</p>}
+            {errors.message && <p id="message-error" className="text-xs text-red-500 mt-1" role="alert">{errors.message}</p>}
           </div>
 
           {/* Submit Button */}
