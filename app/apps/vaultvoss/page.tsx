@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Sparkles, Smartphone, Landmark, CalendarRange, PieChart, Lock, Mail, ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function VaultVossPage() {
   const features = [
@@ -95,62 +96,18 @@ export default function VaultVossPage() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex-1 flex justify-center relative"
+          className="flex-1 flex justify-center relative z-10"
         >
-          {/* Phone Frame Mockup in HTML/CSS */}
-          <div className="relative w-64 h-[480px] bg-slate-950 border-[6px] border-slate-800 rounded-[36px] shadow-2xl overflow-hidden">
-            {/* Speaker/Camera notch */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-5 bg-slate-800 rounded-b-xl z-20 flex items-center justify-center">
-              <div className="w-10 h-1 bg-slate-900 rounded-full mb-1" />
-            </div>
-
-            {/* Simulated App Screen */}
-            <div className="w-full h-full pt-8 px-4 flex flex-col justify-between pb-6 bg-[#0B0F19] text-left">
-              {/* Header */}
-              <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                <div>
-                  <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Dashboard</p>
-                  <h4 className="text-sm font-bold text-white">Net Worth</h4>
-                </div>
-                <div className="w-6 h-6 rounded-full bg-indigo-950 border border-indigo-900 flex items-center justify-center">
-                  <Shield className="w-3 h-3 text-indigo-400" />
-                </div>
-              </div>
-
-              {/* Net Worth Figure */}
-              <div className="py-2">
-                <p className="text-[20px] font-black text-white">$145,280.50</p>
-                <p className="text-[10px] text-emerald-400 font-semibold mt-0.5">+4.2% this month</p>
-              </div>
-
-              {/* Mini Asset vs Debt card */}
-              <div className="grid grid-cols-2 gap-2 my-2">
-                <div className="bg-slate-900/60 p-2.5 rounded-lg border border-white/[0.04]">
-                  <p className="text-[9px] text-slate-500 font-semibold uppercase">Assets</p>
-                  <p className="text-xs font-bold text-white">$162,400.00</p>
-                </div>
-                <div className="bg-slate-900/60 p-2.5 rounded-lg border border-white/[0.04]">
-                  <p className="text-[9px] text-slate-500 font-semibold uppercase">Liabilities</p>
-                  <p className="text-xs font-bold text-red-400">$17,119.50</p>
-                </div>
-              </div>
-
-              {/* Mini Progress Goal */}
-              <div className="bg-slate-900/60 p-3 rounded-lg border border-white/[0.04] space-y-1.5">
-                <div className="flex justify-between items-center text-[10px]">
-                  <span className="text-slate-400 font-semibold">Budget (Groceries)</span>
-                  <span className="text-white font-bold">$340 / $500</span>
-                </div>
-                <div className="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-indigo-500 h-full rounded-full w-[68%]" />
-                </div>
-              </div>
-
-              {/* Secure screen indicator */}
-              <div className="flex items-center justify-center gap-1.5 pt-2 text-[10px] text-indigo-300 font-medium bg-indigo-950/20 py-1.5 rounded-lg border border-indigo-900/20">
-                <Lock className="w-3.5 h-3.5" />
-                <span>Device Encrypted</span>
-              </div>
+          {/* Phone Frame wrapper loading vault_image */}
+          <div className="relative w-64 h-[550px] max-w-full drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500 rounded-2xl overflow-hidden border border-white/10 p-1.5 bg-slate-950/40 backdrop-blur-sm">
+            <div className="relative w-full h-full rounded-xl overflow-hidden">
+              <Image
+                src="/images/vault_image.png"
+                alt="VaultVoss Mobile App Interface"
+                fill
+                priority
+                className="object-cover"
+              />
             </div>
           </div>
         </motion.div>
