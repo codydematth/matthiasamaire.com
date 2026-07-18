@@ -16,7 +16,7 @@ function TimelineItem({ exp, index }: TimelineItemProps) {
   return (
     <div className="relative flex flex-col md:flex-row items-center justify-between md:mb-16 mb-10 group">
       {/* Connector Dot */}
-      <div className="absolute left-6 md:left-1/2 top-0 md:-translate-x-1/2 w-8 h-8 rounded-full bg-slate-950 border-2 border-indigo-600 flex items-center justify-center z-10 shadow-lg group-hover:scale-110 group-hover:border-emerald-500 transition-all duration-300">
+      <div className="absolute left-1 md:left-1/2 top-0 md:-translate-x-1/2 w-8 h-8 rounded-full bg-slate-950 border-2 border-indigo-600 flex items-center justify-center z-10 shadow-lg group-hover:scale-110 group-hover:border-emerald-500 transition-all duration-300">
         <div className="w-2.5 h-2.5 rounded-full bg-indigo-400 group-hover:bg-emerald-400 transition-colors" />
       </div>
 
@@ -42,13 +42,13 @@ function TimelineItem({ exp, index }: TimelineItemProps) {
       </div>
 
       {/* Card Content (on the other side) */}
-      <div className="w-full md:w-[47%] pl-14 md:pl-0 md:group-hover:translate-y-[-4px] transition-transform duration-300">
+      <div className="w-full md:w-[47%] pl-10 md:pl-0 md:group-hover:translate-y-[-4px] transition-transform duration-300">
         <motion.div
           initial={{ opacity: 0, x: isEven ? 30 : -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="glass rounded-3xl p-8 relative hover:shadow-xl hover:shadow-indigo-950/20 transition-all"
+          className="glass rounded-3xl p-6 md:p-8 relative hover:shadow-xl hover:shadow-indigo-950/20 transition-all"
         >
           {/* Logo / Company Name in Mobile View */}
           <div className="flex items-center gap-4 mb-4">
@@ -120,9 +120,9 @@ interface ExperienceTimelineProps {
 
 export default function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
   return (
-    <div className="relative w-full max-w-5xl mx-auto py-10 px-4">
+    <div className="relative w-full py-10 px-0">
       {/* Vertical Connecting Line */}
-      <div className="absolute left-[39px] md:left-1/2 top-4 bottom-4 w-0.5 bg-indigo-600/30 md:-translate-x-1/2" />
+      <div className="absolute left-5 md:left-1/2 top-4 bottom-4 w-0.5 bg-indigo-600/30 md:-translate-x-1/2" />
 
       {/* Timeline List */}
       <div className="space-y-4">

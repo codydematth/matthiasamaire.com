@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
 
 interface ThreeDTiltProps {
@@ -10,6 +10,17 @@ interface ThreeDTiltProps {
 
 export default function ThreeDTilt({ children, className = '' }: ThreeDTiltProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMotionDisabled, setIsMotionDisabled] = useState(false);
+
+  useEffect(() => {
+    const checkMotion = () => {
+      setIsMotionDisabled(document.documentElement.classList.contains('reduced-motion'));
+    };
+    checkMotion();
+
+    window.addEventListener('motion-toggle', checkMotion);
+    return () => window.removeEventListener('motion-toggle', checkMotion);
+  }, []);
 
   // Motion values for X and Y rotations
   const rotateX = useMotionValue(0);
@@ -28,7 +39,12 @@ export default function ThreeDTilt({ children, className = '' }: ThreeDTiltProps
   const sY = useSpring(shineY, springConfig);
   const sOpacity = useSpring(shineOpacity, springConfig);
 
+  // Motion templates defined at top-level to respect Rules of Hooks
+  const transformTemplate = useMotionTemplate`perspective(1000px) rotateX(${rX}deg) rotateY(${rY}deg)`;
+  const shineBgTemplate = useMotionTemplate`radial-gradient(circle 200px at ${sX}% ${sY}%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 80%)`;
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMotionDisabled) return;
     if (!containerRef.current) return;
 
     const el = containerRef.current;
@@ -70,19 +86,21 @@ export default function ThreeDTilt({ children, className = '' }: ThreeDTiltProps
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
-        transformStyle: 'preserve-3d',
-        transform: useMotionTemplate`perspective(1000px) rotateX(${rX}deg) rotateY(${rY}deg)`,
+        transformStyle: isMotionDisabled ? 'flat' : 'preserve-3d',
+        transform: isMotionDisabled ? 'none' : transformTemplate,
       }}
       className={`relative select-none ${className}`}
     >
       {/* Light spotlight overlay (reflection) */}
-      <motion.div
-        style={{
-          background: useMotionTemplate`radial-gradient(circle 200px at ${sX}% ${sY}%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 80%)`,
-          opacity: sOpacity,
-        }}
-        className="absolute inset-0 pointer-events-none rounded-[inherit] z-20 mix-blend-overlay transition-opacity duration-300"
-      />
+      {!isMotionDisabled && (
+        <motion.div
+          style={{
+            background: shineBgTemplate,
+            opacity: sOpacity,
+          }}
+          className="absolute inset-0 pointer-events-none rounded-[inherit] z-20 mix-blend-overlay transition-opacity duration-300"
+        />
+      )}
       {children}
     </motion.div>
   );

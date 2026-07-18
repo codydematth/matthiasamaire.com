@@ -149,13 +149,15 @@ export default function ExperienceGlobe() {
     const flowingLight = new THREE.Mesh(lightGeo, lightMat);
     globeGroup.add(flowingLight);
 
-    // 6. Interaction (Mouse reactivity)
+    // 6. Interaction (Mouse reactivity & Motion Control)
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
+    let motionDisabled = typeof document !== 'undefined' ? document.documentElement.classList.contains('reduced-motion') : false;
 
     const handleMouseMove = (event: MouseEvent) => {
+      if (motionDisabled) return;
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
       const x = event.clientX - rect.left;
@@ -166,6 +168,19 @@ export default function ExperienceGlobe() {
 
     containerRef.current.addEventListener('mousemove', handleMouseMove);
 
+    const handleMotionToggle = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      motionDisabled = customEvent.detail?.disabled ?? false;
+      if (motionDisabled) {
+        // Reset interactive targets immediately on pause
+        mouseX = 0;
+        mouseY = 0;
+        targetX = 0;
+        targetY = 0;
+      }
+    };
+    window.addEventListener('motion-toggle', handleMotionToggle);
+
     // 7. Animation loop
     const clock = new THREE.Clock();
     let reqId: number;
@@ -175,25 +190,25 @@ export default function ExperienceGlobe() {
       const elapsedTime = clock.getElapsedTime();
 
       // Slowly rotate the globe
-      globeGroup.rotation.y = elapsedTime * 0.15;
-      globeGroup.rotation.z = Math.sin(elapsedTime * 0.05) * 0.1;
+      globeGroup.rotation.y = motionDisabled ? 0 : (elapsedTime * 0.15);
+      globeGroup.rotation.z = motionDisabled ? 0 : (Math.sin(elapsedTime * 0.05) * 0.1);
 
       // Pulse pins scale
       pins.forEach((pin, index) => {
-        const scaleVal = 1 + Math.sin(elapsedTime * 5 + index) * 0.15;
+        const scaleVal = motionDisabled ? 1 : (1 + Math.sin(elapsedTime * 5 + index) * 0.15);
         pin.scale.set(scaleVal, scaleVal, scaleVal);
       });
 
       // Flowing light along the curve path
-      const t = (elapsedTime * 0.3) % 1.0;
+      const t = motionDisabled ? 0.5 : ((elapsedTime * 0.3) % 1.0);
       const lightPos = curve.getPointAt(t);
       flowingLight.position.copy(lightPos);
 
       // Mouse reactivity tilt
       targetX += (mouseX - targetX) * 0.05;
       targetY += (mouseY - targetY) * 0.05;
-      globeGroup.rotation.x = targetY * 0.4;
-      globeGroup.rotation.y += targetX * 0.2;
+      globeGroup.rotation.x = motionDisabled ? 0 : (targetY * 0.4);
+      globeGroup.rotation.y += motionDisabled ? 0 : (targetX * 0.2);
 
       renderer.render(scene, camera);
     };
@@ -204,8 +219,10 @@ export default function ExperienceGlobe() {
     return () => {
       cancelAnimationFrame(reqId);
       if (containerRef.current) {
+        containerRef.current.removeEventListener('mousemove', handleMouseMove);
         containerRef.current.innerHTML = '';
       }
+      window.removeEventListener('motion-toggle', handleMotionToggle);
       dotGeometry.dispose();
       dotMaterial.dispose();
       globeGroup.traverse((child) => {

@@ -86,3 +86,23 @@ body {
   pointer-events: none;
 }
 
+/* Accessible focus styling */
+*:focus-visible {
+  outline: 2px solid #6366F1;
+  outline-offset: 4px;
+}
+
+/* Screen reader skip-to-content helper */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+
