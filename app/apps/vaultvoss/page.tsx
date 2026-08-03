@@ -61,8 +61,9 @@ export default function VaultVossPage() {
           <div className="flex flex-wrap gap-4 pt-2">
             {/* Primary Android APK Download */}
             <a
-              href="/downloads/apk/vaultvoss.apk"
-              download="vaultvoss.apk"
+              href="https://github.com/codydematth/matthiasamaire.com/releases/download/v1.0.0/vaultvoss.apk"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl py-3 px-5 border border-indigo-400/30 shadow-lg shadow-indigo-600/25 active:scale-95 transition-all group"
             >
               <Download className="w-6 h-6 text-indigo-100 group-hover:translate-y-0.5 transition-transform" />
@@ -74,8 +75,9 @@ export default function VaultVossPage() {
 
             {/* Google Play (Store Pending -> Downloads APK) */}
             <a
-              href="/downloads/apk/vaultvoss.apk"
-              download="vaultvoss.apk"
+              href="https://github.com/codydematth/matthiasamaire.com/releases/download/v1.0.0/vaultvoss.apk"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl py-3 px-5 border border-white/10 shadow-lg active:scale-95 transition-all group"
             >
               {/* Play Store SVG */}
