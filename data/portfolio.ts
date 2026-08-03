@@ -53,6 +53,43 @@ export const experiences: Experience[] = [
       'Focused on performance optimization, accessibility, and clean UI/UX.'
     ]
   },
+   {
+    title: 'Fullstack Engineer',
+    companyName: 'Keepsafe ng, United Kingdom',
+    icon: '/images/company/keepsafe.png',
+    date: 'Oct 2025 - Present',
+    points: [
+      'Built a backend system with Azure Functions, Azure blob storage, Azure SQL database, and Azure Subscription for API authentication and file management.',
+      'Built Keepsafe mobile app and admin web interface from scratch using React Native Expo, TypeScript (mobile) and React Vite + Tailwind CSS + Shadcn/ui (admin).',
+      'Developed OAuth authentication (Azure) and secure file uploads.',
+      'Created profile setup, document verification, role-based dashboards, and voting system UI.',
+      'Troubleshooting & Maintenance: Conducted debugging and maintenance activities to ensure smooth functioning of the mobile app and web features, resolving issues promptly.',
+    ]
+  },
+   {
+    title: 'Frontend Engineer',
+    companyName: 'SterlingTech & Data Science, Nigeria',
+    icon: '/images/company/SterlinTech.png',
+    date: 'Oct 2023 - Jan 2026',
+    points: [
+      'Led frontend development for People’s Store, an AI-powered e-commerce platform, using Next.js, TypeScript, Shadcn/ui, Tailwind CSS, Redux, and FastAPI.',
+      'Collaboration & Integration: Worked closely with backend developers to integrate front-end interfaces with back-end functionalities for a cohesive user experience.',
+      'Built AI-enhanced features such as typo tolerance, voice-to-text input, and smart relevance filtering.',
+      'Led frontend development for DATR (Directorate of Air Transport Regulation) using React, TypeScript, Tailwind CSS, Shadcn/ui, Redux.'
+    ]
+  },
+   {
+    title: 'Frontend Engineer',
+    companyName: 'Keepsafe ng, United Kingdom',
+    icon: '/images/company/keepsafe.png',
+    date: 'Nov 2024 - Sept 2025',
+    points: [
+      'Built Keepsafe mobile app and admin web interface from scratch using React Native Expo, TypeScript (mobile) and React Vite + Tailwind CSS + Shadcn/ui (admin).',
+      'Collaboration & Integration: Worked closely with backend developers to integrate front-end interfaces with back-end functionalities for a cohesive user experience.',
+      'Troubleshooting & Maintenance: Conducted debugging and maintenance activities to ensure smooth functioning of the front-end features, resolving issues promptly.',
+      'Developed OAuth authentication (Azure) and secure file uploads and Created profile setup, document verification, role-based dashboards, and voting system UI.'
+    ]
+  },
   {
     title: 'Mobile Engineer',
     companyName: 'Jopiter.io, Nigeria',
@@ -65,30 +102,8 @@ export const experiences: Experience[] = [
       'Integrated APIs and handled mobile-specific debugging and performance issues.'
     ]
   },
-  {
-    title: 'Frontend Engineer',
-    companyName: 'Keepsafe ng, United Kingdom',
-    icon: '/images/company/keepsafe.png',
-    date: 'Nov 2024 - Dec 2025',
-    points: [
-      'Built Keepsafe mobile app and admin web interface from scratch using React Native Expo, TypeScript (mobile) and React Vite + Tailwind CSS + Shadcn/ui (admin).',
-      'Collaboration & Integration: Worked closely with backend developers to integrate front-end interfaces with back-end functionalities for a cohesive user experience.',
-      'Troubleshooting & Maintenance: Conducted debugging and maintenance activities to ensure smooth functioning of the front-end features, resolving issues promptly.',
-      'Developed OAuth authentication (Azure) and secure file uploads and Created profile setup, document verification, role-based dashboards, and voting system UI.'
-    ]
-  },
-  {
-    title: 'Frontend Engineer',
-    companyName: 'SterlingTech & Data Science, Nigeria',
-    icon: '/images/company/SterlinTech.png',
-    date: 'Oct 2023 - Jan 2026',
-    points: [
-      'Led frontend development for People’s Store, an AI-powered e-commerce platform, using Next.js, TypeScript, Shadcn/ui, Tailwind CSS, Redux, and FastAPI.',
-      'Collaboration & Integration: Worked closely with backend developers to integrate front-end interfaces with back-end functionalities for a cohesive user experience.',
-      'Built AI-enhanced features such as typo tolerance, voice-to-text input, and smart relevance filtering.',
-      'Led frontend development for DATR (Directorate of Air Transport Regulation) using React, TypeScript, Tailwind CSS, Shadcn/ui, Redux.'
-    ]
-  },
+ 
+ 
   {
     title: 'Frontend Engineer',
     companyName: 'TAWOL Technologies, Nigeria',
@@ -204,7 +219,7 @@ const rawProjects: Project[] = [
   {
     id: '2cb1799e-a28e-430b-b58e-bac186defa8c',
     title: 'Multimedia Learning System',
-    subTitle: 'Web Application',
+    subTitle: 'Web Development',
     description: 'An interactive online teaching and course manager platform built using Django and Bootstrap.',
     liveUrl: 'https://codyteaching.pythonanywhere.com/',
     codeUrl: 'https://github.com/codydematth',
@@ -313,6 +328,22 @@ const rawProjects: Project[] = [
       'Built dynamic restaurant discovery features & menu filtering mechanisms.',
       'Designed highly responsive Next.js frontend interfaces to maximize mobile usability.',
       'Integrated backend APIs to support location searches and foodie community engagement.'
+    ]
+  },
+  {
+    id: 'vaultvoss-app-2026',
+    title: 'VaultVoss',
+    subTitle: 'App Development',
+    description: 'Private, offline-first personal asset and expense tracker built with React Native & Expo, featuring local biometrics and budget management.',
+    liveUrl: '/apps/vaultvoss',
+    codeUrl: 'https://github.com/codydematth',
+    dateCreated: '2026-07-28T10:00:00.000000Z',
+    image: '/images/vault_image.png',
+    tags: ['React Native', 'Expo', 'TypeScript', 'Redux', 'Biometrics', 'Android APK'],
+    highlights: [
+      'Built offline-first personal asset and liability tracking with real-time net worth calculation.',
+      'Secured financial logs with device-native biometrics (Face ID / Touch ID) via Secure Enclave.',
+      'Enabled direct manual APK download for Android users prior to Google Play Store release.'
     ]
   }
 ];

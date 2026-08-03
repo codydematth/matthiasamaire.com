@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Sparkles, Smartphone, Landmark, CalendarRange, PieChart, Lock, Mail, ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { Shield, Sparkles, Smartphone, Landmark, CalendarRange, PieChart, Lock, Mail, ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -57,37 +57,63 @@ export default function VaultVossPage() {
             VaultVoss is a private, offline-first personal ledger utility. Track your assets, monitor liabilities, schedule recurring subscriptions, and secure your financial dashboard using device-native biometric lock screens. Simple, encrypted, and designed to put you in control.
           </p>
 
-          {/* App Store Badges */}
-          <div className="flex flex-wrap gap-4 pt-4">
-            {/* App Store */}
+          {/* App Store / APK Badges */}
+          <div className="flex flex-wrap gap-4 pt-2">
+            {/* Primary Android APK Download */}
             <a
-              href="#"
-              className="flex items-center gap-3 bg-black hover:bg-slate-900 text-white rounded-xl py-3 px-5 border border-white/10 shadow-lg active:scale-95 transition-all"
+              href="https://github.com/codydematth/matthiasamaire.com/releases/download/v1.0.0/vaultvoss.apk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl py-3 px-5 border border-indigo-400/30 shadow-lg shadow-indigo-600/25 active:scale-95 transition-all group"
             >
-              {/* Apple SVG */}
-              <svg className="w-6 h-6 fill-white" viewBox="0 0 24 24">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-.96.04-2.13.64-2.82 1.45-.6.69-1.12 1.83-.98 2.94.97.08 2.06-.52 2.81-1.33z" />
-              </svg>
+              <Download className="w-6 h-6 text-indigo-100 group-hover:translate-y-0.5 transition-transform" />
               <div className="text-left leading-none">
-                <p className="text-[10px] text-slate-400 uppercase tracking-widest">Download on the</p>
-                <p className="text-base font-bold font-sans">App Store</p>
+                <p className="text-[10px] text-indigo-200 uppercase tracking-widest font-semibold">Direct Download</p>
+                <p className="text-base font-bold font-sans">Android APK</p>
               </div>
             </a>
 
-            {/* Google Play */}
+            {/* Google Play (Store Pending -> Downloads APK) */}
             <a
-              href="#"
-              className="flex items-center gap-3 bg-black hover:bg-slate-900 text-white rounded-xl py-3 px-5 border border-white/10 shadow-lg active:scale-95 transition-all"
+              href="https://github.com/codydematth/matthiasamaire.com/releases/download/v1.0.0/vaultvoss.apk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl py-3 px-5 border border-white/10 shadow-lg active:scale-95 transition-all group"
             >
               {/* Play Store SVG */}
-              <svg className="w-6 h-6 fill-white" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 fill-white group-hover:scale-105 transition-transform" viewBox="0 0 24 24">
                 <path d="M5.25 3.001c-.134 0-.265.037-.383.111l11.028 11.028 3.733-3.733c.732-.732.732-1.92 0-2.652L6.16 3.284a1.86 1.86 0 0 0-.91-.283M4.25 4.156v15.688c0 .285.068.567.198.819l8.04-8.04-8.04-8.04c-.13.252-.198.534-.198.819m8.966 7.643 8.324 8.324c.334-.582.383-1.282.115-1.95L13.216 11.8M5.132 20.89a1.86 1.86 0 0 0 1.028.11L19.627 13.5l-3.733 3.733-10.762 3.657" />
               </svg>
               <div className="text-left leading-none">
-                <p className="text-[10px] text-slate-400 uppercase tracking-widest">Get it on</p>
-                <p className="text-base font-bold font-sans">Google Play</p>
+                <p className="text-[10px] text-emerald-400 uppercase tracking-widest font-medium">Google Play (Pending)</p>
+                <p className="text-base font-bold font-sans">Get APK File</p>
               </div>
             </a>
+
+            {/* App Store (Coming Soon) */}
+            <div
+              className="flex items-center gap-3 bg-slate-950/60 text-slate-500 rounded-xl py-3 px-5 border border-white/5 cursor-not-allowed opacity-75"
+              title="iOS App Store release coming soon"
+            >
+              {/* Apple SVG */}
+              <svg className="w-6 h-6 fill-slate-500" viewBox="0 0 24 24">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-.96.04-2.13.64-2.82 1.45-.6.69-1.12 1.83-.98 2.94.97.08 2.06-.52 2.81-1.33z" />
+              </svg>
+              <div className="text-left leading-none">
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest">App Store</p>
+                <p className="text-base font-bold font-sans">Coming Soon</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Manual Install Banner */}
+          <div className="p-4 rounded-2xl bg-indigo-950/30 border border-indigo-500/20 text-slate-300 text-xs sm:text-sm flex items-center gap-3 mt-4">
+            <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 shrink-0">
+              <Download className="w-4 h-4" />
+            </div>
+            <p className="leading-relaxed">
+              <strong className="text-white font-semibold">Manual Download Available:</strong> Pending Google Play Store publication, you can download and install the Android APK directly on your device.
+            </p>
           </div>
         </motion.div>
 
