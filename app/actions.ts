@@ -65,8 +65,9 @@ export async function sendContactEmail(formData: EmailData) {
     }
 
     return { success: true, data };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Server Action execution error:', error);
-    return { success: false, error: error.message || 'An unexpected error occurred during mailing.' };
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred during mailing.';
+    return { success: false, error: errorMessage };
   }
 }

@@ -17,26 +17,31 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Matthias Amire | Frontend & React Native Engineer",
-  description: "Matthias Amire is a Freelance Frontend and React Native Engineer with 3+ years of experience building real-world web and mobile applications.",
+  title: "Matthias Amire | Software Engineer — Frontend, Mobile & Technical Troubleshooting",
+  description: "Matthias Amire is a Software Engineer with 3+ years of experience building production web and mobile applications using React, Next.js, React Native, and TypeScript, specializing in API integration and technical troubleshooting.",
   metadataBase: new URL("https://matthiasamire.com"),
   keywords: [
     "Matthias Amire",
-    "Matthias",
-    "Amire",
-    "Frontend Engineer",
-    "React Native Engineer",
-    "React Native Developer",
     "Software Engineer",
-    "Portfolio",
-    "FastAPI Developer"
+    "Frontend Engineer",
+    "React Native Developer",
+    "Technical Troubleshooting",
+    "Developer Support",
+    "API Integration",
+    "TypeScript",
+    "JavaScript",
+    "React",
+    "Next.js",
+    "OAuth",
+    "FastAPI",
+    "Root Cause Analysis"
   ],
   alternates: {
     canonical: "./",
   },
   openGraph: {
-    title: "Matthias Amire | Portfolio",
-    description: "Frontend & React Native Engineer with 3+ years of experience. Specializing in high-performance web applications and mobile apps.",
+    title: "Matthias Amire | Software Engineer — Frontend, Mobile & Troubleshooting",
+    description: "Software Engineer with 3+ years of experience in React, Next.js, React Native, TypeScript, API integrations, and technical troubleshooting.",
     url: "https://matthiasamire.com",
     siteName: "Matthias Amire Portfolio",
     locale: "en_US",
@@ -54,20 +59,24 @@ export default function RootLayout({
     "@type": "Person",
     "name": "Matthias Amire",
     "url": "https://matthiasamire.com",
-    "jobTitle": "Frontend & React Native Engineer",
+    "jobTitle": "Software Engineer",
     "sameAs": [
       "https://github.com/codydematth",
       "https://www.linkedin.com/in/codydematth/"
     ],
     "knowsAbout": [
-      "Frontend Engineering",
-      "React Native",
+      "Software Engineering",
+      "Technical Troubleshooting",
+      "API Integration",
+      "Developer Support",
       "React",
-      "FastAPI",
+      "Next.js",
+      "React Native",
       "TypeScript",
       "JavaScript",
-      "Web Development",
-      "Mobile Development"
+      "FastAPI",
+      "OAuth 2.0",
+      "Root Cause Analysis"
     ]
   };
 
@@ -100,4 +109,3 @@ export default function RootLayout({
     </html>
   );
 }
-

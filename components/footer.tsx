@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Mail, ArrowUp } from 'lucide-react';
-import { Github, Linkedin } from '@/components/brand-icons';
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Mail, ArrowUp, FileText, Wrench } from "lucide-react";
+import { Github, Linkedin } from "@/components/brand-icons";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -32,35 +32,37 @@ export default function Footer() {
               Matthias Amire
             </span>
           </div>
-          <p className="text-xs text-slate-500">
-            Frontend & React Native Engineer. Rebuilt with Next.js & Framer Motion.
+          <p className="text-xs text-slate-400 max-w-sm">
+            Software Engineer specializing in frontend, mobile applications,
+            APIs, and technical troubleshooting.
           </p>
         </div>
 
         {/* Links */}
-        <div className="flex flex-wrap justify-center gap-6 text-sm">
-          <Link href="/#about" className="hover:text-white transition-colors">
-            About
-          </Link>
-          <Link href="/#skills" className="hover:text-white transition-colors">
-            Skills
-          </Link>
-          <Link href="/#projects" className="hover:text-white transition-colors">
-            Projects
-          </Link>
-          <Link href="/#experience" className="hover:text-white transition-colors">
+        <div className="flex flex-wrap justify-center gap-5 text-xs sm:text-sm">
+          <Link
+            href="/#experience"
+            className="hover:text-white transition-colors"
+          >
             Experience
           </Link>
-          <Link href="/#contact" className="hover:text-white transition-colors">
-            Contact
+          <Link
+            href="/troubleshooting-lab"
+            className="text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 transition-colors"
+          >
+            <Wrench className="w-3.5 h-3.5" />
+            <span>Troubleshooting Lab</span>
           </Link>
-          <Link href="/apps/vaultvoss" className="hover:text-indigo-400 font-medium transition-colors">
+          <Link
+            href="/apps/vaultvoss"
+            className="hover:text-white transition-colors"
+          >
             VaultVoss App
           </Link>
         </div>
 
         {/* Socials & Top */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <a
             href="https://github.com/codydematth"
             target="_blank"
@@ -88,7 +90,7 @@ export default function Footer() {
           </a>
           <button
             onClick={handleScrollToTop}
-            className="p-2 rounded-full bg-indigo-950 text-indigo-400 border border-indigo-900 hover:text-white hover:border-indigo-700 hover:bg-indigo-900 transition-all ml-2"
+            className="p-2 rounded-full bg-indigo-950 text-indigo-400 border border-indigo-900 hover:text-white hover:border-indigo-700 hover:bg-indigo-900 transition-all ml-1 cursor-pointer"
             aria-label="Scroll to top"
           >
             <ArrowUp className="w-4 h-4" />
@@ -96,16 +98,42 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-slate-900/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 text-center sm:text-left">
-        <div>
-          &copy; {currentYear} Matthias Amire. All rights reserved.
+      {/* Resume Quick Access & Legal */}
+      <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-slate-900/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center sm:text-left">
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
+          <span className="text-slate-400 font-medium">Download Resumes:</span>
+          <a
+            href="/media/Matthias-Amire-Software-Engineer-Resume.pdf"
+            download="Matthias-Amire-Software-Engineer-Resume.pdf"
+            className="hover:text-indigo-400 flex items-center gap-1 transition-colors"
+          >
+            <FileText className="w-3 h-3" />
+            <span>Software Engineering (Resume A)</span>
+          </a>
+          <span className="text-slate-700 hidden sm:inline">&bull;</span>
+          <a
+            href="/media/Matthias-Amire-Technical-Support-Engineer-Resume.pdf"
+            download="Matthias-Amire-Technical-Support-Engineer-Resume.pdf"
+            className="hover:text-emerald-400 flex items-center gap-1 transition-colors"
+          >
+            <FileText className="w-3 h-3" />
+            <span>Technical Support & Troubleshooting (Resume B)</span>
+          </a>
         </div>
+
         <div className="flex gap-4">
-          <Link href="/apps/vaultvoss/privacy" className="hover:text-slate-400 transition-colors">
-            VaultVoss Privacy
+          <span>&copy; {currentYear} Matthias Amire</span>
+          <Link
+            href="/apps/vaultvoss/privacy"
+            className="hover:text-slate-400 transition-colors"
+          >
+            Privacy
           </Link>
-          <Link href="/apps/vaultvoss/terms" className="hover:text-slate-400 transition-colors">
-            VaultVoss Terms
+          <Link
+            href="/apps/vaultvoss/terms"
+            className="hover:text-slate-400 transition-colors"
+          >
+            Terms
           </Link>
         </div>
       </div>
