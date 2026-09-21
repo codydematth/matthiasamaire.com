@@ -326,10 +326,10 @@ const rawProjects: Project[] = [
       'Investigated and resolved OAuth redirect loop failures occurring during mobile deep linking by standardizing redirect URI schemes across platforms.',
       'Debugged secure file upload timeouts on large verification documents by implementing chunked uploads and network retry logic with exponential backoff.'
     ],
-    liveUrl: '',
-    codeUrl: 'https://github.com/codydematth',
+    liveUrl: 'https://www.keepsafe.ng',
+    codeUrl: '',
     dateCreated: '2025-10-01T10:00:00.000000Z',
-    image: 'https://res.cloudinary.com/db3oikvrl/image/upload/v1718774059/mathias-new-portfolio_o5dwpw.png',
+    image: 'https://res.cloudinary.com/db3oikvrl/image/upload/v1789985835/15e54f96-31d2-498d-b114-b730d42f8f46.png',
     tags: ['React Native', 'React', 'Vite', 'TypeScript', 'Azure OAuth', 'Azure Functions', 'Blob Storage'],
     highlights: [
       'Configured Azure OAuth identity management across mobile and web.',
@@ -354,8 +354,8 @@ const rawProjects: Project[] = [
       'Investigated asynchronous checkout failure states where payment webhook confirmations arrived before client redirect was completed, introducing state synchronization flags.',
       'Debugged speech-to-text audio permission rejections across varying mobile web environments, adding clear fallback input indicators.'
     ],
-    liveUrl: 'https://www.peoplesstore.ng/',
-    codeUrl: 'https://github.com/codydematth',
+    liveUrl: 'https://moorcart.com/',
+    codeUrl: '',
     dateCreated: '2025-09-01T17:04:13.763854Z',
     image: 'https://res.cloudinary.com/db3oikvrl/image/upload/v1756743255/Simplistic_Laptop_iphone_tablet_mockup_instagram_post_zvlx6r.png',
     tags: ['Next.js', 'TypeScript', 'Redux', 'FastAPI', 'Tailwind CSS', 'Flutterwave', 'Seerbit'],
@@ -382,7 +382,7 @@ const rawProjects: Project[] = [
       'Troubleshot asynchronous comment race conditions where rapid user submissions occasionally displayed out-of-order.'
     ],
     liveUrl: 'https://play.google.com/store/apps/details?id=com.jopiter.jopiterio&hl=en',
-    codeUrl: 'https://github.com/codydematth',
+    codeUrl: '',
     dateCreated: '2025-09-01T17:10:22.495988Z',
     image: 'https://res.cloudinary.com/db3oikvrl/image/upload/v1756741370/White_Green_Mobile_Mockup_Photo_Collage_Beauty_Facebook_Post_2_kuqib5.png',
     tags: ['React Native', 'Expo', 'TypeScript', 'Redux', 'Mobile Debugging'],
@@ -409,7 +409,7 @@ const rawProjects: Project[] = [
       'Investigated slow PDF preview rendering on low-bandwidth connections, introducing progressive loading indicators and asset optimization.'
     ],
     liveUrl: 'https://datr.ncaa.gov.ng/',
-    codeUrl: 'https://github.com/codydematth',
+    codeUrl: '',
     dateCreated: '2025-09-01T17:07:10.171929Z',
     image: 'https://res.cloudinary.com/db3oikvrl/image/upload/v1756743658/Simplistic_Laptop_iphone_tablet_mockup_instagram_post_1_aioaqw.png',
     tags: ['Next.js', 'React', 'TypeScript', 'Redux', 'Tailwind CSS', 'Shadcn UI'],
@@ -435,8 +435,8 @@ const rawProjects: Project[] = [
       'Handled mobile connectivity dropouts during active delivery routes, implementing local queue persistence to prevent lost delivery timestamps.',
       'Debugged touch responsiveness issues across lower-end Android target devices, refining gesture handlers.'
     ],
-    liveUrl: '',
-    codeUrl: 'https://github.com/codydematth',
+    liveUrl: 'https://delbott.com/',
+    codeUrl: '',
     dateCreated: '2024-06-20T08:34:19.577542Z',
     image: 'https://res.cloudinary.com/db3oikvrl/image/upload/v1718872289/delbott_glrsyv.png',
     tags: ['React Native', 'TypeScript', 'Redux', 'Mobile Logistics'],
