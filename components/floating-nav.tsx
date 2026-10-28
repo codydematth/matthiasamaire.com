@@ -5,7 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, Zap, ZapOff, Wrench } from "lucide-react";
+import {
+  Menu,
+  X,
+  ArrowUpRight,
+  Zap,
+  ZapOff,
+  Wrench,
+  Gamepad2,
+} from "lucide-react";
+import { usePortfolioView } from "@/components/portfolio-view-store";
 
 function subscribeMotion(callback: () => void) {
   if (typeof window === "undefined") return () => {};
@@ -36,6 +45,7 @@ export default function FloatingNav() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const { setViewMode } = usePortfolioView();
 
   const isMotionDisabled = useSyncExternalStore(
     subscribeMotion,
@@ -93,7 +103,6 @@ export default function FloatingNav() {
         { name: "Skills", href: "/#skills" },
         { name: "Projects", href: "/#projects" },
         { name: "Experience", href: "/#experience" },
-        { name: "Troubleshooting Lab", href: "/troubleshooting-lab" },
         { name: "Contact", href: "/#contact" },
         { name: "VaultVoss App", href: "/apps/vaultvoss" },
       ];
@@ -159,6 +168,7 @@ export default function FloatingNav() {
                 item.href.startsWith("http") ||
                 item.href.startsWith("/apps/vaultvoss") ||
                 (isVaultVossRoute && item.href === "/");
+              const isSimulatorItem = item.href === "/simulator";
               const isLabItem = item.href === "/troubleshooting-lab";
               const isCurrentActive = isLabItem ? isLabRoute : false;
 
@@ -169,12 +179,18 @@ export default function FloatingNav() {
                   target={
                     item.href === "/apps/vaultvoss" ? "_blank" : undefined
                   }
-                  onClick={(e) =>
-                    !isExternal && !isLabItem
-                      ? handleLinkClick(e, item.href)
-                      : undefined
-                  }
-                  className={`relative px-2.5 py-1 text-xs xl:text-sm font-medium tracking-wide transition-colors duration-300 hover:text-white flex items-center gap-1 ${
+                  onClick={(e) => {
+                    if (isSimulatorItem) {
+                      e.preventDefault();
+                      setViewMode("game");
+                      if (pathname !== "/") {
+                        router.push("/");
+                      }
+                    } else if (!isExternal && !isLabItem) {
+                      handleLinkClick(e, item.href);
+                    }
+                  }}
+                  className={`relative px-2.5 py-1 text-xs xl:text-sm font-medium tracking-wide transition-colors duration-300 hover:text-white flex items-center gap-1.5 ${
                     isCurrentActive
                       ? "text-indigo-400 font-semibold"
                       : isLabItem
@@ -182,6 +198,9 @@ export default function FloatingNav() {
                         : "text-slate-400"
                   }`}
                 >
+                  {isSimulatorItem && (
+                    <Gamepad2 className="w-3.5 h-3.5 text-slate-400" />
+                  )}
                   {isLabItem && (
                     <Wrench className="w-3.5 h-3.5 text-indigo-400" />
                   )}
@@ -249,12 +268,21 @@ export default function FloatingNav() {
                 (isVaultVossRoute && item.href === "/");
               const isLabItem = item.href === "/troubleshooting-lab";
 
+              const isSimulatorItem = item.href === "/simulator";
+
               return (
                 <a
                   key={item.name}
                   href={item.href}
                   onClick={(e) => {
-                    if (!isExternal && !isLabItem) {
+                    if (isSimulatorItem) {
+                      e.preventDefault();
+                      setViewMode("game");
+                      if (pathname !== "/") {
+                        router.push("/");
+                      }
+                      setIsOpen(false);
+                    } else if (!isExternal && !isLabItem) {
                       handleLinkClick(e, item.href);
                     } else {
                       setIsOpen(false);
@@ -267,6 +295,9 @@ export default function FloatingNav() {
                   }`}
                 >
                   <div className="flex items-center gap-2">
+                    {isSimulatorItem && (
+                      <Gamepad2 className="w-4 h-4 text-slate-400" />
+                    )}
                     {isLabItem && (
                       <Wrench className="w-4 h-4 text-indigo-400" />
                     )}
