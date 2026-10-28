@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Mail,
@@ -16,18 +16,49 @@ import {
   ShieldCheck,
   Layers,
   Download,
-} from 'lucide-react';
-import { Github, Linkedin } from '@/components/brand-icons';
-import TypingText from '@/components/typing-text';
-import SkillsGrid from '@/components/skills-grid';
-import { ProjectsGrid } from '@/components/project-card';
-import ExperienceTimeline from '@/components/experience-timeline';
-import ContactForm from '@/components/contact-form';
-import ExperienceGlobe from '@/components/experience-globe';
-import HeroMesh from '@/components/hero-mesh';
-import { projects, experiences } from '@/data/portfolio';
+  Gamepad2,
+} from "lucide-react";
+import { Github, Linkedin } from "@/components/brand-icons";
+import TypingText from "@/components/typing-text";
+import SkillsGrid from "@/components/skills-grid";
+import { ProjectsGrid } from "@/components/project-card";
+import ExperienceTimeline from "@/components/experience-timeline";
+import ContactForm from "@/components/contact-form";
+import ExperienceGlobe from "@/components/experience-globe";
+import HeroMesh from "@/components/hero-mesh";
+import { projects, experiences } from "@/data/portfolio";
+import dynamic from "next/dynamic";
+import { useSimStore } from "@/components/simulator/store";
+import { usePortfolioView } from "@/components/portfolio-view-store";
+
+const SimulatorView = dynamic(
+  () => import("@/components/simulator/simulator-view"),
+  {
+    ssr: false,
+  },
+);
 
 export default function Home() {
+  const { viewMode, setViewMode } = usePortfolioView();
+  const simulatorActive = useSimStore((s) => s.simulatorActive);
+  const startSimulator = useSimStore((s) => s.start);
+
+  React.useEffect(() => {
+    if (viewMode === "game") {
+      startSimulator();
+    }
+  }, [viewMode, startSimulator]);
+
+  // 1. DEFAULT ROOT EXPERIENCE: 3D GAMING SIMULATOR
+  if (viewMode === "game") {
+    return (
+      <div className="w-screen h-screen overflow-hidden bg-[#0B0F19] text-white">
+        {simulatorActive && <SimulatorView />}
+      </div>
+    );
+  }
+
+  // 2. SECONDARY OPTION: TEXT CONTENT PORTFOLIO
   return (
     <div className="w-full flex flex-col items-center">
       {/* 1. HERO SECTION */}
@@ -53,17 +84,18 @@ export default function Home() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none text-white">
-              Hi, I&apos;m <span className="text-indigo-400">Matthias Amire</span>
+              Hi, I&apos;m{" "}
+              <span className="text-indigo-400">Matthias Amire</span>
             </h1>
 
             <div className="text-xl sm:text-2xl font-medium text-slate-300">
-              A Specialized{' '}
+              A Specialized{" "}
               <TypingText
                 strings={[
-                  'Software Engineer',
-                  'Frontend & Mobile Specialist',
-                  'API & Integration Engineer',
-                  'Technical Problem Solver'
+                  "Software Engineer",
+                  "Frontend & Mobile Specialist",
+                  "API & Integration Engineer",
+                  "Technical Problem Solver",
                 ]}
               />
             </div>
@@ -71,10 +103,17 @@ export default function Home() {
             {/* Core Hero Statement */}
             <div className="space-y-3 max-w-2xl">
               <p className="text-base sm:text-lg text-slate-300 font-medium leading-relaxed">
-                Software Engineer specializing in frontend, mobile applications, APIs, and technical troubleshooting.
+                Software Engineer specializing in frontend, mobile applications,
+                APIs, and technical troubleshooting.
               </p>
               <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
-                With <strong>3+ years of professional development experience</strong>, I build production web and mobile applications using React, Next.js, React Native, and TypeScript. I particularly enjoy investigating difficult bugs, debugging upstream API integrations, and solving complex technical problems across the stack.
+                With{" "}
+                <strong>3+ years of professional development experience</strong>
+                , I build production web and mobile applications using React,
+                Next.js, React Native, and TypeScript. I particularly enjoy
+                investigating difficult bugs, debugging upstream API
+                integrations, and solving complex technical problems across the
+                stack.
               </p>
             </div>
 
@@ -84,7 +123,9 @@ export default function Home() {
                 href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }}
                 className="group inline-flex items-center gap-2 bg-indigo-600 text-white font-semibold px-6 py-3.5 rounded-full text-sm border border-indigo-500 shadow-lg shadow-indigo-600/20 hover:bg-indigo-500 hover:shadow-indigo-500/30 transition-all duration-300 active:scale-[0.98] cursor-pointer"
               >
@@ -111,6 +152,18 @@ export default function Home() {
                 <Download className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
                 <span>Resume: Technical Support</span>
               </a>
+
+              <button
+                onClick={() => {
+                  startSimulator();
+                  setViewMode("game");
+                }}
+                className="group inline-flex items-center gap-2 bg-slate-900 text-slate-300 font-medium px-4 py-3.5 rounded-full text-xs sm:text-sm border border-white/10 hover:bg-slate-800 hover:text-white hover:border-emerald-500/40 transition-all duration-300 cursor-pointer active:scale-[0.98]"
+                title="Play 3D Gaming Simulator"
+              >
+                <Gamepad2 className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                <span>Play 3D Simulator Game</span>
+              </button>
             </div>
 
             {/* Socials & Direct Reach */}
@@ -140,7 +193,9 @@ export default function Home() {
               >
                 <Mail className="w-5 h-5" />
               </a>
-              <span className="text-xs text-slate-500 pl-2">support@matthiasamire.com</span>
+              <span className="text-xs text-slate-500 pl-2">
+                support@matthiasamire.com
+              </span>
             </div>
           </motion.div>
 
@@ -173,8 +228,100 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 1.5. 3D GAMING SIMULATOR SPOTLIGHT */}
+      <section className="w-full py-16 px-6 bg-gradient-to-b from-[#0B0F19] to-[#080B13] border-b border-slate-900/80">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative glass rounded-3xl p-8 sm:p-10 border border-indigo-500/30 overflow-hidden shadow-2xl">
+            {/* Ambient glowing radial lights */}
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              <div className="space-y-4 max-w-2xl">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 text-xs font-semibold">
+                  <Gamepad2 className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                  <span>Interactive 3D Experience</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+                  Drive Through the{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400">
+                    My City
+                  </span>
+                </h2>
+
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  Explore my entire career, production projects, and work
+                  history as an interactive 3D world. Pilot a low-poly sports
+                  roadster along the portfolio boulevard featuring four dynamic
+                  stations:
+                </p>
+
+                {/* 4 Stations Preview Pills */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
+                  <div className="p-3 rounded-2xl bg-slate-900/80 border border-white/5 space-y-1">
+                    <span className="text-xs font-bold text-amber-400 flex items-center gap-1">
+                      <span>🏠 Estate</span>
+                    </span>
+                    <p className="text-[11px] text-slate-400">
+                      Proximity gate &amp; avatar billboard
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-2xl bg-slate-900/80 border border-white/5 space-y-1">
+                    <span className="text-xs font-bold text-indigo-400 flex items-center gap-1">
+                      <span>💼 Offices</span>
+                    </span>
+                    <p className="text-[11px] text-slate-400">
+                      6 branded offices &amp; coding workstation
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-2xl bg-slate-900/80 border border-white/5 space-y-1">
+                    <span className="text-xs font-bold text-pink-400 flex items-center gap-1">
+                      <span>🎬 Cinema</span>
+                    </span>
+                    <p className="text-[11px] text-slate-400">
+                      Neon marquee &amp; interactive theatre
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-2xl bg-slate-900/80 border border-white/5 space-y-1">
+                    <span className="text-xs font-bold text-cyan-400 flex items-center gap-1">
+                      <span>📞 Call Center</span>
+                    </span>
+                    <p className="text-[11px] text-slate-400">
+                      Phone booth &amp; direct message kiosk
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Launch Button */}
+              <div className="shrink-0 flex flex-col gap-3">
+                <Link
+                  href="/simulator"
+                  className="group inline-flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 via-indigo-600 to-pink-500 hover:from-cyan-400 hover:via-indigo-500 hover:to-pink-400 text-white font-extrabold px-8 py-4 rounded-2xl text-sm shadow-xl shadow-indigo-600/30 transition-all hover:scale-105 active:scale-95 border border-white/20"
+                >
+                  <Gamepad2 className="w-5 h-5 text-cyan-200" />
+                  <span>Launch Simulator Now</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+
+                <p className="text-[11px] text-slate-500 text-center font-mono">
+                  WASD / Arrow Keys &bull; Touch Controls on Mobile
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 2. ABOUT SECTION */}
-      <section id="about" className="w-full py-20 px-6 border-b border-slate-950 bg-[#080B13]/80">
+      <section
+        id="about"
+        className="w-full py-20 px-6 border-b border-slate-950 bg-[#080B13]/80"
+      >
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto space-y-3">
@@ -182,9 +329,13 @@ export default function Home() {
               <Layers className="w-3.5 h-3.5" />
               <span>Professional Narrative</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">About Matthias Amire</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+              About Matthias Amire
+            </h2>
             <p className="text-sm sm:text-base text-slate-400">
-              A software engineering foundation focused on building reliable production systems and methodically resolving complex software problems.
+              A software engineering foundation focused on building reliable
+              production systems and methodically resolving complex software
+              problems.
             </p>
           </div>
 
@@ -193,21 +344,51 @@ export default function Home() {
             {/* Left Narrative Text */}
             <div className="lg:col-span-7 glass rounded-3xl p-8 space-y-5 border border-white/5">
               <h3 className="text-xl sm:text-2xl font-bold text-white leading-snug">
-                Engineering Production Software with a Natural Gravitation Toward Troubleshooting
+                Engineering Production Software with a Natural Gravitation
+                Toward Troubleshooting
               </h3>
 
               <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                Over the past <strong>3+ years</strong>, I have worked as a professional software engineer building and scaling web and mobile applications using <strong>React, Next.js, React Native, Expo, and TypeScript</strong>. My work spans public-facing consumer platforms, government regulatory systems, e-commerce marketplaces, and offline-first mobile utilities.
+                Over the past <strong>3+ years</strong>, I have worked as a
+                professional software engineer building and scaling web and
+                mobile applications using{" "}
+                <strong>
+                  React, Next.js, React Native, Expo, and TypeScript
+                </strong>
+                . My work spans public-facing consumer platforms, government
+                regulatory systems, e-commerce marketplaces, and offline-first
+                mobile utilities.
               </p>
 
               <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                Throughout my development career, I have consistently gravitated toward <strong>debugging, root-cause investigation, and integration troubleshooting</strong>. Whether it is tracking down race conditions in payment webhooks, resolving OAuth redirect loops, diagnosing frame-rate drops in deep mobile lists, or resolving cross-origin network failures, I find deep satisfaction in dissecting how software behaves at its boundaries and engineering resilient solutions.
+                Throughout my development career, I have consistently gravitated
+                toward{" "}
+                <strong>
+                  debugging, root-cause investigation, and integration
+                  troubleshooting
+                </strong>
+                . Whether it is tracking down race conditions in payment
+                webhooks, resolving OAuth redirect loops, diagnosing frame-rate
+                drops in deep mobile lists, or resolving cross-origin network
+                failures, I find deep satisfaction in dissecting how software
+                behaves at its boundaries and engineering resilient solutions.
               </p>
 
               <div className="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-500/20 text-slate-300 text-xs sm:text-sm leading-relaxed space-y-1.5">
-                <span className="font-semibold text-indigo-300 block">Target Expansion Areas:</span>
+                <span className="font-semibold text-indigo-300 block">
+                  Target Expansion Areas:
+                </span>
                 <p className="text-slate-400">
-                  Building on this solid engineering foundation, I am actively expanding toward <strong>Developer Support Engineering, Technical Support Engineering, Implementation Engineering, and Integration Engineering</strong> roles — where hands-on code understanding directly empowers developers, partners, and enterprise customers to overcome complex technical barriers.
+                  Building on this solid engineering foundation, I am actively
+                  expanding toward{" "}
+                  <strong>
+                    Developer Support Engineering, Technical Support
+                    Engineering, Implementation Engineering, and Integration
+                    Engineering
+                  </strong>{" "}
+                  roles — where hands-on code understanding directly empowers
+                  developers, partners, and enterprise customers to overcome
+                  complex technical barriers.
                 </p>
               </div>
             </div>
@@ -220,12 +401,18 @@ export default function Home() {
                     <Code2 className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">Full-Lifecycle SWE Experience</h4>
-                    <p className="text-xs text-slate-400">React &bull; Next.js &bull; React Native &bull; TypeScript</p>
+                    <h4 className="text-sm font-bold text-white">
+                      Full-Lifecycle SWE Experience
+                    </h4>
+                    <p className="text-xs text-slate-400">
+                      React &bull; Next.js &bull; React Native &bull; TypeScript
+                    </p>
                   </div>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Proven track record constructing user-facing client architectures, state management systems, and cross-platform native mobile applications.
+                  Proven track record constructing user-facing client
+                  architectures, state management systems, and cross-platform
+                  native mobile applications.
                 </p>
               </div>
 
@@ -235,12 +422,18 @@ export default function Home() {
                     <Bug className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">Systematic Root Cause Analysis</h4>
-                    <p className="text-xs text-slate-400">Isolation &bull; Reproduction &bull; Resolution</p>
+                    <h4 className="text-sm font-bold text-white">
+                      Systematic Root Cause Analysis
+                    </h4>
+                    <p className="text-xs text-slate-400">
+                      Isolation &bull; Reproduction &bull; Resolution
+                    </p>
                   </div>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Disciplined defect isolation using DevTools, network inspect, logging, and minimal reproducible harnesses to fix real underlying causes.
+                  Disciplined defect isolation using DevTools, network inspect,
+                  logging, and minimal reproducible harnesses to fix real
+                  underlying causes.
                 </p>
               </div>
 
@@ -250,12 +443,18 @@ export default function Home() {
                     <ShieldCheck className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white">APIs & Authentication Integration</h4>
-                    <p className="text-xs text-slate-400">OAuth 2.0 &bull; Azure AD &bull; REST &bull; Webhooks</p>
+                    <h4 className="text-sm font-bold text-white">
+                      APIs & Authentication Integration
+                    </h4>
+                    <p className="text-xs text-slate-400">
+                      OAuth 2.0 &bull; Azure AD &bull; REST &bull; Webhooks
+                    </p>
                   </div>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Extensive practical exposure configuring token lifecycles, Azure identity handshakes, and third-party integration pipelines.
+                  Extensive practical exposure configuring token lifecycles,
+                  Azure identity handshakes, and third-party integration
+                  pipelines.
                 </p>
               </div>
             </div>
@@ -264,16 +463,22 @@ export default function Home() {
       </section>
 
       {/* 3. SKILLS SECTION */}
-      <section id="skills" className="w-full bg-[#0B0F19] py-20 px-6 border-b border-slate-950">
+      <section
+        id="skills"
+        className="w-full bg-[#0B0F19] py-20 px-6 border-b border-slate-950"
+      >
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/40 text-indigo-400 border border-indigo-900/50 text-xs font-semibold">
               <Code2 className="w-3.5 h-3.5" />
               <span>Technology Ecosystem</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Skills & Core Expertise</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+              Skills & Core Expertise
+            </h2>
             <p className="text-sm sm:text-base text-slate-400">
-              Organized into distinct engineering competencies supported directly by verified production experience.
+              Organized into distinct engineering competencies supported
+              directly by verified production experience.
             </p>
           </div>
 
@@ -282,7 +487,7 @@ export default function Home() {
       </section>
 
       {/* 4. TROUBLESHOOTING LAB TEASER */}
-      <section className="w-full py-16 px-6 bg-[#080B13]/70 border-b border-slate-950">
+      {/* <section className="w-full py-16 px-6 bg-[#080B13]/70 border-b border-slate-950">
         <div className="max-w-6xl mx-auto">
           <div className="glass rounded-3xl p-8 sm:p-10 border border-indigo-500/20 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -299,14 +504,25 @@ export default function Home() {
                 </h3>
 
                 <p className="text-sm text-slate-300 leading-relaxed">
-                  I maintain an empirical engineering workbench dedicated to reproducing, isolating, and investigating difficult software problems — including OAuth handshakes, REST API serialization discrepancies, and mobile thread performance.
+                  I maintain an empirical engineering workbench dedicated to
+                  reproducing, isolating, and investigating difficult software
+                  problems — including OAuth handshakes, REST API serialization
+                  discrepancies, and mobile thread performance.
                 </p>
 
                 <div className="flex flex-wrap gap-2 pt-1 text-xs text-slate-400">
-                  <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-white/5">12-Point RCA Protocol</span>
-                  <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-white/5">Network Trace Analysis</span>
-                  <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-white/5">Controlled Reproduction</span>
-                  <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-white/5">Zero Fabricated Data</span>
+                  <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-white/5">
+                    12-Point RCA Protocol
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-white/5">
+                    Network Trace Analysis
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-white/5">
+                    Controlled Reproduction
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-slate-900 border border-white/5">
+                    Zero Fabricated Data
+                  </span>
                 </div>
               </div>
 
@@ -323,7 +539,9 @@ export default function Home() {
                   href="#contact"
                   onClick={(e) => {
                     e.preventDefault();
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    document
+                      .getElementById("contact")
+                      ?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="inline-flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white font-medium px-5 py-3 rounded-2xl text-xs border border-white/5 hover:bg-slate-800 transition-all text-center"
                 >
@@ -333,19 +551,26 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 5. PROJECTS SHOWCASE */}
-      <section id="projects" className="w-full py-20 px-6 border-b border-slate-950">
+      <section
+        id="projects"
+        className="w-full py-20 px-6 border-b border-slate-950"
+      >
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/40 text-indigo-400 border border-indigo-900/50 text-xs font-semibold">
               <Compass className="w-3.5 h-3.5" />
               <span>Production Work</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Featured Projects</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+              Featured Projects
+            </h2>
             <p className="text-sm sm:text-base text-slate-400">
-              A breakdown of production applications, enterprise platforms, and native mobile utilities with verified personal contributions and troubleshooting focus.
+              A breakdown of production applications, enterprise platforms, and
+              native mobile utilities with verified personal contributions and
+              troubleshooting focus.
             </p>
           </div>
 
@@ -354,16 +579,22 @@ export default function Home() {
       </section>
 
       {/* 6. EXPERIENCE TIMELINE */}
-      <section id="experience" className="w-full bg-[#080B13]/80 py-20 px-4 sm:px-6 border-b border-slate-950">
+      <section
+        id="experience"
+        className="w-full bg-[#080B13]/80 py-20 px-4 sm:px-6 border-b border-slate-950"
+      >
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/40 text-indigo-400 border border-indigo-900/50 text-xs font-semibold">
               <Briefcase className="w-3.5 h-3.5" />
               <span>Professional History</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Work Experience</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+              Work Experience
+            </h2>
             <p className="text-sm sm:text-base text-slate-400">
-              Over 3 years contributing to cross-functional teams, startup squads, and enterprise systems.
+              Over 3 years contributing to cross-functional teams, startup
+              squads, and enterprise systems.
             </p>
           </div>
 
@@ -384,9 +615,13 @@ export default function Home() {
               <MessageSquare className="w-3.5 h-3.5" />
               <span>Let&apos;s Connect</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Get In Touch</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+              Get In Touch
+            </h2>
             <p className="text-sm sm:text-base text-slate-400">
-              I am open to international Software Engineering, Developer Support, Technical Support, and Integration Engineering opportunities. Drop a message!
+              I am open to international Software Engineering, Developer
+              Support, Technical Support, and Integration Engineering
+              opportunities. Drop a message!
             </p>
           </div>
 
